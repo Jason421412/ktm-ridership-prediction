@@ -1,114 +1,141 @@
 # KTM Komuter Ridership Prediction
 
-A notebook-based machine learning project for predicting hourly KTM Komuter ridership using temporal, holiday, and station-related features.
+Regression-based machine learning workflow for hourly KTM Komuter ridership prediction.
 
-## Why I Built This
+## Project Overview
 
-Public transport demand changes by hour, day, station, and calendar context. Better ridership prediction can support planning decisions such as capacity allocation, timetable review, and identifying peak-demand patterns. This project treats ridership forecasting as a supervised regression problem and documents the modeling workflow in a Jupyter notebook.
+This repository documents a notebook-based ML workflow for forecasting KTM Komuter ridership using temporal, holiday, and station-related features. It is positioned as a reproducible data analytics project, not as a deployed forecasting service.
 
-## Features
+## Problem
 
-- Notebook workflow for ridership prediction.
-- Data preprocessing with pandas and NumPy.
-- Exploratory visualization with Matplotlib, Seaborn, and Plotly.
-- Temporal and holiday-related feature engineering.
-- Regression modeling with scikit-learn and gradient-boosting libraries.
-- Dependency file for reproducible local setup.
-- Dataset folder documented separately because data files are excluded from the repository.
+Public transport demand changes by hour, day, station, route, and calendar context. A forecasting workflow can help explore questions such as:
 
-## Tech Stack
+- When are ridership peaks likely to happen?
+- Which temporal and station features are useful predictors?
+- How do simple baselines compare with more advanced tabular models?
+- What limitations appear when dataset availability or licensing is unclear?
 
-- **Language:** Python
-- **Notebook:** Jupyter Notebook
-- **Data:** pandas, NumPy
-- **Visualization:** Matplotlib, Seaborn, Plotly
-- **Machine learning:** scikit-learn, XGBoost, LightGBM, CatBoost
-- **Feature engineering:** holidays, SciPy
+## Dataset / Source Note
 
-## Architecture / System Design
+The repository does not currently include the raw ridership dataset. Dataset files are expected under `data/`, while `data/README.md` documents why large or unclear-license data files are excluded.
 
-```text
-data/
-  README.md
+TODO/risk note: before publishing data or final metrics, confirm the dataset source, license, schema, and whether redistribution is allowed.
 
-notebooks/
-  ktm_ridership_prediction.ipynb
+## Preprocessing
 
-requirements.txt
+The notebook is intended to cover:
+
+- loading ridership records
+- parsing date/time fields
+- cleaning station and route values
+- handling missing or inconsistent values
+- preparing tabular features for regression models
+
+## Feature Engineering
+
+Feature groups documented or implied by the notebook setup include:
+
+- hour of day
+- day of week
+- weekend/weekday indicators
+- holiday-related context
+- origin/destination or station-related categorical features
+- route or direction context where available
+
+## Models Compared
+
+The dependency file supports experimentation with:
+
+- scikit-learn regression models
+- XGBoost
+- LightGBM
+- CatBoost
+
+The README does not claim a winning model because final reproducible metrics and exported result tables are not currently tracked.
+
+## Evaluation Metrics
+
+Recommended metrics for this project:
+
+- MAE
+- RMSE
+- R2
+
+For time-related ridership data, future evaluation should use a time-aware split to reduce leakage risk.
+
+## Results Summary
+
+No final result table or chart is currently tracked in the repository. Add exported notebook outputs before making claims about model performance.
+
+Suggested evidence to add:
+
+- model comparison table with MAE/RMSE/R2
+- actual vs predicted plot
+- residual analysis
+- feature importance chart
+- baseline comparison
+
+## How to Reproduce
+
+Create and activate a virtual environment:
+
+```bash
+python -m venv .venv
 ```
 
-- **Data layer:** Raw dataset files are expected under `data/`, but are not committed to the repository.
-- **Modeling workflow:** The notebook handles loading, cleaning, feature engineering, model training, and evaluation.
-- **Experimentation:** The dependency list supports several regression model families so results can be compared.
-- **Deployment:** This is an analysis notebook, not a deployed prediction service.
+On Windows PowerShell:
 
-## My Contributions
+```powershell
+.venv\Scripts\activate
+```
 
-- Structured the project as a reproducible notebook-based ML workflow.
-- Prepared dependency documentation through `requirements.txt`.
-- Worked on preprocessing and feature engineering for ridership prediction.
-- Explored regression models suitable for tabular transport-demand forecasting.
-- Documented the current project scope and limitations honestly.
+On macOS/Linux:
 
-## What I Learned
+```bash
+source .venv/bin/activate
+```
 
-- How transport forecasting problems can be framed as supervised regression tasks.
-- Why temporal features and holiday context matter in demand prediction.
-- How to compare multiple tabular ML models without treating one library as a guaranteed answer.
-- Why public ML repositories should clearly explain missing datasets and reproducibility limits.
+Install dependencies:
 
-## Screenshots / Demo
+```bash
+pip install -r requirements.txt
+```
 
-No screenshots are currently tracked in this repository.
+Add the dataset files under `data/` according to [data/README.md](data/README.md), then open the notebook:
 
-Evidence to add later:
+```bash
+jupyter notebook notebooks/ktm_ridership_prediction.ipynb
+```
 
-- Notebook output charts exported as images.
-- Model comparison table with MAE, RMSE, and R2.
-- Feature-importance chart for the best-performing model.
-- Dataset source and license notes, if the data can be shared publicly.
+Run the notebook cells from top to bottom after confirming local dataset paths.
 
-## Setup
+## Limitations
 
-1. Clone the repository.
-
-   ```bash
-   git clone https://github.com/Jason421412/ktm-ridership-prediction.git
-   cd ktm-ridership-prediction
-   ```
-
-2. Create and activate a virtual environment.
-
-   ```bash
-   python -m venv .venv
-   .venv\Scripts\activate
-   ```
-
-   On macOS/Linux:
-
-   ```bash
-   source .venv/bin/activate
-   ```
-
-3. Install dependencies.
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. Add the dataset files under `data/` according to `data/README.md`.
-
-5. Open the notebook.
-
-   ```bash
-   jupyter notebook notebooks/ktm_ridership_prediction.ipynb
-   ```
+- Raw data is not committed.
+- Dataset source/license needs clearer documentation before public data sharing.
+- The project is currently notebook-based and does not include a training script.
+- Final model metrics are not exported to the README.
+- Time leakage must be checked carefully before interpreting results.
+- This is an analysis workflow, not a production prediction service.
 
 ## Future Improvements
 
-- Add a clear dataset source, schema, and license note.
-- Export final charts and model metrics into the README.
-- Add a train/evaluation script outside the notebook.
-- Add baseline models before advanced gradient-boosting models.
-- Add time-based validation to avoid leakage.
-- Package the best model behind a small FastAPI endpoint.
+- Add dataset source, schema, and license notes.
+- Export final charts and metrics from the notebook.
+- Add a reproducible `train.py` or `evaluate.py` script.
+- Add baseline models before advanced gradient boosting.
+- Use time-based validation.
+- Add a small model card documenting intended use and limitations.
+- Package a trained model only after dataset rights and evaluation are clear.
+
+## Documentation
+
+- [Data README](data/README.md)
+- [Project decisions](docs/decisions.md)
+
+## What I Learned
+
+- How to frame transport-demand forecasting as supervised regression.
+- Why temporal features and holiday context matter in ridership prediction.
+- Why reproducible ML repositories need dataset, metric, and leakage documentation.
+- Why public ML claims should be backed by tracked outputs, not notebook memory.

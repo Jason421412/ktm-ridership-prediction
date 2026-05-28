@@ -1,6 +1,13 @@
 # Data Directory
 
-This directory is intended to store the datasets for the KTM Ridership Prediction project.
+This directory is intended to store local datasets for the KTM Ridership Prediction project.
 
-**Note on pushing to GitHub:** 
-Large datasets (like `.csv` or `.xlsx` files) should **not** be uploaded to GitHub to avoid exceeding repository size limits. An exception has been added in the `.gitignore` to track this specific `README.md` file while ignoring all other data files in this folder.
+Raw data files are not tracked in this repository. Before publishing any dataset, confirm:
+
+- source
+- license
+- redistribution permission
+- schema
+- whether the data contains sensitive or restricted operational details
+
+Large files such as `.csv` and `.xlsx` should remain local unless the dataset is clearly public and safe to redistribute. `.gitignore` tracks this README while ignoring data files in this folder.
